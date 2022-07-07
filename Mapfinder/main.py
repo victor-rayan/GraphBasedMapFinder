@@ -1,8 +1,8 @@
 import pygame as pg
 
-TILE = 15
-RESWIDTH = 40
-RESHEIGHT = 40
+TILE = 10
+RESWIDTH = 75
+RESHEIGHT = 75
 WIDTH = TILE * RESWIDTH
 HEIGHT = TILE * RESHEIGHT
 
@@ -10,7 +10,8 @@ pg.init()
 sc = pg.math.Vector2
 screen = pg.display.set_mode((WIDTH, HEIGHT ))
 clock = pg.time.Clock()
-gtasa_img = pg.image.load('Mapfinder\gtasa.jpg').convert_alpha()
+gtasa_img = pg.image.load('Mapfinder/gtasa.jpg').convert_alpha()
+gtasa_img = pg.transform.scale(gtasa_img, (WIDTH, HEIGHT))
 gtasa_rect = gtasa_img.get_rect()
 gtasa_rect.center = WIDTH // 2, HEIGHT // 2
 
@@ -49,7 +50,6 @@ def draw_grid():
 source = Grid(RESWIDTH, RESHEIGHT)
 
 while True:
-    
     for event in pg.event.get():
         if event.type == pg.QUIT:
             quit()
