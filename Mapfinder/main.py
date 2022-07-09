@@ -1,9 +1,9 @@
 import pygame as pg
-import heap as hp
 import const as c
 import grid as g
 from os import path
 from grid import *
+from finder import DijkstraAlgorithm
 
 vec = pg.math.Vector2
 
@@ -34,33 +34,6 @@ def draw_icons():
     goal_center = (start.x * c.TILE + c.TILE / 2, start.y * c.TILE + c.TILE / 2)
     screen.blit(cross_img, cross_img.get_rect(center=goal_center))
 
-def transform_int(v):
-    return (int(v.x), int(v.y))
-
-def dijkstra_search(graph, start, end):
-    frontier = hp.PriorityQueue()
-    frontier.put(transform_int(start), 0)
-    path = {}
-    cost = {}
-    path[transform_int(start)] = None
-    cost[transform_int(start)] = 0
-
-    while not frontier.empty():
-        current = frontier.get()
-        if current == end:
-            break
-        for next in graph.neighbors(vec(current)):
-            next = transform_int(next)
-            next_cost = cost[current] + graph.cost(current, next)
-            if next not in cost or next_cost < cost[next]:
-                cost[next] = next_cost
-                priority = next_cost
-                frontier.put(next, priority)
-                path[next] = vec(current) - vec(next)
-    # print (path)
-    return path
-
-  
 icon_dir = path.join(path.dirname(__file__), '../icons')
 
 # Imagens das ferraduras
@@ -97,7 +70,7 @@ walls = res
 print(type(walls))    
 goal = vec(1, 1)
 start = vec(1, 2)
-path = dijkstra_search(source, goal, start)
+path = DijkstraAlgorithm.dijkstra_search(source, goal, start)
 
 for wall in walls:
     source.walls.append(vec(wall))
@@ -122,7 +95,7 @@ while True:
             if event.button == 3:
                 print('entrou')
                 goal = mouseposition
-            path = dijkstra_search(source, goal, start)       
+            path = DijkstraAlgorithm.dijkstra_search(source, goal, start)       
 
 
     screen.fill("black")
@@ -133,14 +106,14 @@ while True:
     # source.draw()
 
     try:
-        current = start + path[transform_int(start)]
+        current = start + path[DijkstraAlgorithm.transform_int(start)]
         while current != goal:
             x = current.x * c.TILE + c.TILE / 2
             y = current.y * c.TILE + c.TILE / 2
-            img = paths_gps[transform_int(path[(current.x, current.y)])]
+            img = paths_gps[DijkstraAlgorithm.transform_int(path[(current.x, current.y)])]
             r = img.get_rect(center=(x, y))
             screen.blit(img, r)
-            current = current + path[transform_int(current)]
+            current = current + path[DijkstraAlgorithm.transform_int(current)]
     except KeyError:
         print('erro')
 
