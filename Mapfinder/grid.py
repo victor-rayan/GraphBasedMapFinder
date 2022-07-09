@@ -2,7 +2,7 @@ import const as c
 import pygame as pg
 vec = pg.math.Vector2
 sc = pg.math.Vector2
-screen = pg.display.set_mode()
+screen = pg.display.set_mode((c.WIDTH, c.HEIGHT ))
 
 class Grid:
     def __init__(self, width, height):
