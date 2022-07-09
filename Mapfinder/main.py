@@ -1,6 +1,7 @@
 import pygame as pg
 import const as c
 import grid as g
+import math
 from os import path
 from grid import *
 from finder import DijkstraAlgorithm
@@ -29,11 +30,10 @@ def draw_grid():
         pg.draw.line(screen, 'blue', (0, y), (c.WIDTH, y))
 
 def draw_icons():
-    start_center = (goal.x * c.TILE + c.TILE / 2, goal.y * c.TILE + c.TILE / 2)
-    screen.blit(home_img, home_img.get_rect(center=start_center))
-    goal_center = (start.x * c.TILE + c.TILE / 2, start.y * c.TILE + c.TILE / 2)
+    goal_center = (goal.x * c.TILE + c.TILE / 2, goal.y * c.TILE + c.TILE / 2)
     screen.blit(cross_img, cross_img.get_rect(center=goal_center))
-
+    start_center = (start.x * c.TILE + c.TILE / 2, start.y * c.TILE + c.TILE / 2)
+    screen.blit(home_img, home_img.get_rect(center=start_center))
 def draw_horseicons():
     with open('horsehoeslocations.txt', 'r') as file:
         horsehoes = file.read().replace('\n', '')
@@ -47,6 +47,33 @@ def draw_horseicons():
         yy = new[1].strip()
         start_center = (float(xx) * c.TILE + c.TILE / 2, float(yy) * c.TILE + c.TILE / 2)
         screen.blit(horse_img, horse_img.get_rect(center=start_center))
+
+def colisionsListVerify(posx, posy):
+    
+    posx = math.floor(posx)
+    posy = math.floor(posy)
+    
+    with open('horsehoeslocations.txt', 'r') as file:
+        horsehoes = file.read().replace('\n', '')
+
+    horsehoes = horsehoes.split("), ")
+     
+    for item in horsehoes:
+        x = item.strip("[() )]")
+        new = x.split(",")
+        xx = new[0].strip()
+        yy = new[1].strip()
+        if posx == int(xx) and posy == int(yy):
+            flag = 1
+            break
+        else:
+            flag = 0
+            continue
+
+    if flag == 1:
+        return True
+    elif flag == 0:
+        return False          
 
 icon_dir = path.join(path.dirname(__file__), '../icons')
 
@@ -76,9 +103,7 @@ with open('collisionsList.txt', 'r') as file:
     data = file.read().replace('\n', '')
 
 res = eval(data)
-
-walls = res 
-print(type(walls))    
+walls = res    
 goal = vec(1, 1)
 start = vec(1, 2)
 path = DijkstraAlgorithm.dijkstra_search(source, goal, start)
@@ -100,12 +125,20 @@ while True:
                 else:
                     source.walls.append(mouseposition)
             if event.button == 2:
+                # if mouseposition 
                 start = mouseposition
+                
                 print(mouseposition)
                 print('esiu')
             if event.button == 3:
-                print('entrou')
-                goal = mouseposition
+                posx = mouseposition.x
+                posy = mouseposition.y
+
+                if colisionsListVerify(posx, posy):
+                    print('entrou')
+                    goal = mouseposition
+                else:
+                    print('posicao errada')   
             path = DijkstraAlgorithm.dijkstra_search(source, goal, start)       
 
 
