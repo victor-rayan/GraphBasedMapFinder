@@ -34,14 +34,25 @@ def draw_icons():
     goal_center = (start.x * c.TILE + c.TILE / 2, start.y * c.TILE + c.TILE / 2)
     screen.blit(cross_img, cross_img.get_rect(center=goal_center))
 
+def draw_horseicons():
+    with open('horsehoeslocations.txt', 'r') as file:
+        horsehoes = file.read().replace('\n', '')
+
+    horsehoes = horsehoes.split("), ")
+
+    for item in horsehoes:
+        x = item.strip("[() )]")
+        new = x.split(",")
+        xx = new[0].strip()
+        yy = new[1].strip()
+        start_center = (float(xx) * c.TILE + c.TILE / 2, float(yy) * c.TILE + c.TILE / 2)
+        screen.blit(horse_img, horse_img.get_rect(center=start_center))
+
 icon_dir = path.join(path.dirname(__file__), '../icons')
 
 # Imagens das ferraduras
 horse_img = pg.image.load(path.join(icon_dir, 'horse.png')).convert_alpha()
-horse_img = pg.transform.scale(horse_img, (40, 40))
-horse_rect= horse_img.get_rect()
-horse_rect.center = (70 * c.TILE + c.TILE / 2, 65 * c.TILE + c.TILE / 2)
-
+horse_img = pg.transform.scale(horse_img, (43, 43))
 
 # Imagens origem
 home_img = pg.image.load(path.join(icon_dir, 'home.png')).convert_alpha()
@@ -100,7 +111,9 @@ while True:
 
     screen.fill("black")
     screen.blit(gtasa_img, gtasa_rect)
-    screen.blit(horse_img, horse_rect)
+
+    
+    draw_horseicons()
    
     # draw_grid()
     # source.draw()
@@ -115,7 +128,7 @@ while True:
             screen.blit(img, r)
             current = current + path[DijkstraAlgorithm.transform_int(current)]
     except KeyError:
-        print('erro')
+        pass
 
     draw_icons()
     pg.display.flip()
