@@ -5,6 +5,10 @@ import math
 from grid import *
 from finder import DijkstraAlgorithm
 
+'''
+Tela principal do jogo que contem o mapa utilizado e os algoritmos para traçar a menor rota
+'''
+
 def gta_gamehorses(Boolean):
 
     from os import path
@@ -12,7 +16,7 @@ def gta_gamehorses(Boolean):
 
     pg.init()
     sc = pg.math.Vector2
-    screen = pg.display.set_mode((c.WIDTH, c.HEIGHT ))
+    screen = pg.display.set_mode((c.WIDTH, c.HEIGHT))
     clock = pg.time.Clock()
 
     # Imagem mapa do jogo
@@ -27,7 +31,7 @@ def gta_gamehorses(Boolean):
 
     source = g.WeightedGrid(c.RESWIDTH, c.RESHEIGHT, typevehicule)
 
-    pg.display.set_caption("GTA Horsehoes")                 
+    pg.display.set_caption("GTA Horsehoes")
 
     icon_dir = path.join(path.dirname(__file__), '../assets')
 
@@ -47,9 +51,8 @@ def gta_gamehorses(Boolean):
     # Caminho que o gps percorre
     paths_gps = {}
     gps = pg.image.load(path.join(icon_dir, 'path.png')).convert_alpha()
-    gps = pg.transform.scale(gps, (20, 20)) 
+    gps = pg.transform.scale(gps, (20, 20))
     gps.fill(('blue'), special_flags=pg.BLEND_RGBA_MULT)
-
 
     def draw_grid():
         for x in range(0, c.WIDTH, c.TILE):
@@ -58,9 +61,11 @@ def gta_gamehorses(Boolean):
             pg.draw.line(screen, 'blue', (0, y), (c.WIDTH, y))
 
     def draw_icons():
-        goal_center = (goal.x * c.TILE + c.TILE / 2, goal.y * c.TILE + c.TILE / 2)
+        goal_center = (goal.x * c.TILE + c.TILE / 2,
+                       goal.y * c.TILE + c.TILE / 2)
         screen.blit(cross_img, cross_img.get_rect(center=goal_center))
-        start_center = (start.x * c.TILE + c.TILE / 2, start.y * c.TILE + c.TILE / 2)
+        start_center = (start.x * c.TILE + c.TILE / 2,
+                        start.y * c.TILE + c.TILE / 2)
         screen.blit(home_img, home_img.get_rect(center=start_center))
 
     def draw_horseicons():
@@ -74,19 +79,20 @@ def gta_gamehorses(Boolean):
             new = x.split(",")
             xx = new[0].strip()
             yy = new[1].strip()
-            start_center = (float(xx) * c.TILE + c.TILE / 2, float(yy) * c.TILE + c.TILE / 2)
+            start_center = (float(xx) * c.TILE + c.TILE / 2,
+                            float(yy) * c.TILE + c.TILE / 2)
             screen.blit(horse_img, horse_img.get_rect(center=start_center))
 
     def colisionsListVerify(posx, posy):
-        
+
         posx = math.floor(posx)
         posy = math.floor(posy)
-        
+
         with open('../assets/horsehoeslocations.txt', 'r') as file:
             horsehoes = file.read().replace('\n', '')
 
         horsehoes = horsehoes.split("), ")
-        
+
         for item in horsehoes:
             x = item.strip("[() )]")
             new = x.split(",")
@@ -102,26 +108,27 @@ def gta_gamehorses(Boolean):
         if flag == 1:
             return True
         elif flag == 0:
-            return False 
-
+            return False
 
     if typevehicule:
         for dir in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
-            paths_gps[dir] = pg.transform.rotate(gps, vec(dir).angle_to(vec(1, 0)))
+            paths_gps[dir] = pg.transform.rotate(
+                gps, vec(dir).angle_to(vec(1, 0)))
     else:
         for dir in [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)]:
-            paths_gps[dir] = pg.transform.rotate(gps, vec(dir).angle_to(vec(1, 0)))          
+            paths_gps[dir] = pg.transform.rotate(
+                gps, vec(dir).angle_to(vec(1, 0)))
 
     with open('../assets/collisionsList.txt', 'r') as file:
         data = file.read().replace('\n', '')
-    
+
     flag2 = 0
     res = eval(data)
-    walls = res    
+    walls = res
     goal = vec(1, 1)
     start = vec(1, 2)
     path = DijkstraAlgorithm.dijkstra_search(source, goal, start)
-    
+
     if typevehicule:
         for wall in walls:
             source.walls.append(vec(wall))
@@ -133,41 +140,31 @@ def gta_gamehorses(Boolean):
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_c:
                     return 1
-                         
+
             if event.type == pg.MOUSEBUTTONDOWN:
                 mouseposition = sc(pg.mouse.get_pos()) // c.TILE
-                print(mouseposition)
                 if event.button == 1:
                     if mouseposition in source.walls:
                         source.walls.remove(mouseposition)
-                        print(mouseposition)
                     else:
                         source.walls.append(mouseposition)
                 if event.button == 2:
-                    # if mouseposition 
+                    # if mouseposition
                     start = mouseposition
-                    
-                    print(mouseposition)
-                    print('esiu')
                 if event.button == 3:
                     posx = mouseposition.x
                     posy = mouseposition.y
 
                     if colisionsListVerify(posx, posy):
-                        print('entrou')
                         goal = mouseposition
-                    else:
-                        print('posicao errada')  
-                
-                path = DijkstraAlgorithm.dijkstra_search(source, goal, start)       
 
+                path = DijkstraAlgorithm.dijkstra_search(source, goal, start)
 
         screen.fill("black")
         screen.blit(gtasa_img, gtasa_rect)
 
-        
         draw_horseicons()
-    
+
         # draw_grid()
         # source.draw()
 
@@ -176,10 +173,12 @@ def gta_gamehorses(Boolean):
             while current != goal:
                 x = current.x * c.TILE + c.TILE / 2
                 y = current.y * c.TILE + c.TILE / 2
-                img = paths_gps[DijkstraAlgorithm.transform_int(path[(current.x, current.y)])]
+                img = paths_gps[DijkstraAlgorithm.transform_int(
+                    path[(current.x, current.y)])]
                 r = img.get_rect(center=(x, y))
                 screen.blit(img, r)
-                current = current + path[DijkstraAlgorithm.transform_int(current)]
+                current = current + \
+                    path[DijkstraAlgorithm.transform_int(current)]
         except KeyError:
             pass
         except TypeError:
@@ -187,6 +186,3 @@ def gta_gamehorses(Boolean):
 
         draw_icons()
         pg.display.flip()
-        
-    
-    

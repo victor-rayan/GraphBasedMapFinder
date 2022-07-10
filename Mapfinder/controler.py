@@ -5,6 +5,7 @@ from main import gta_gamehorses
 Instancia o programa, chama o menu e os fluxos de execuções das telas.
 '''
 
+
 def control_start():
     game = menu()
     if game == 1:

@@ -1,7 +1,12 @@
 import heapq
 import pygame as pg
 
+'''
+Algoritmos utilizados para traçar a menor rota no grid
+'''
+
 vec = pg.math.Vector2
+
 
 class DijkstraAlgorithm:
 
@@ -30,6 +35,7 @@ class DijkstraAlgorithm:
                     path[next] = vec(current) - vec(next)
         # print (path)
         return path
+
 
 class PriorityQueue:
     def __init__(self):

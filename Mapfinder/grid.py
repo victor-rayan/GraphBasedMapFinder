@@ -1,8 +1,15 @@
 import const as c
 import pygame as pg
+
+'''
+Define uma matriz na tela e utiliza para formar o grafo
+'''
+
+
 vec = pg.math.Vector2
 sc = pg.math.Vector2
-screen = pg.display.set_mode((c.WIDTH, c.HEIGHT ))
+screen = pg.display.set_mode((c.WIDTH, c.HEIGHT))
+
 
 class Grid:
     def __init__(self, width, height, typevehicule):
@@ -10,11 +17,12 @@ class Grid:
         self.height = height
         self.walls = []
         if typevehicule:
-            self.connections = [sc(1, 0), sc(-1, 0), sc(0, 1), sc(0, -1)] # Todas direções possíveis de ir up, down, left and right
+            # Todas direções possíveis de ir up, down, left and right
+            self.connections = [sc(1, 0), sc(-1, 0), sc(0, 1), sc(0, -1)]
         else:
             self.connections = [vec(1, 0), vec(-1, 0), vec(0, 1), vec(0, -1)]
-            self.connections += [vec(1, 1), vec(-1, 1), vec(1, -1), vec(-1, -1)]
-
+            self.connections += [vec(1, 1), vec(-1, 1),
+                                 vec(1, -1), vec(-1, -1)]
 
     def limits_grid(self, node):
         return 0 <= node.x < self.width and 0 <= node.y < self.height
@@ -33,9 +41,9 @@ class Grid:
             rect = pg.Rect(wall * c.TILE, (c.TILE, c.TILE))
             pg.draw.rect(screen, 'blue', rect)
 
+
 class WeightedGrid(Grid):
     def __init__(self, width, height, typevehicule):
-        print('elevador1')
         super().__init__(width, height, typevehicule)
         self.weights = {}
 
@@ -51,6 +59,6 @@ class WeightedGrid(Grid):
             pg.draw.rect(screen, c.MAGENTA, rect)
         for tile in self.weights:
             x, y = tile
-            rect = pg.Rect(x * c.TILE + 3, y * c.TILE + 3, c.TILE - 3, c.TILE - 3)
+            rect = pg.Rect(x * c.TILE + 3, y * c.TILE +
+                           3, c.TILE - 3, c.TILE - 3)
             pg.draw.rect(screen, c.FOREST, rect)
-

@@ -6,10 +6,13 @@ from os import path
 from const import *
 import const as c
 
+'''
+Tela do menu inicial
+'''
 
 def menu():
     pygame.init()
-
+    pg.display.set_caption("GTA Horsehoes")
     RES = c.WIDTH, c.HEIGHT
     game_surface = pygame.Surface(RES)
     surface = pg.display.set_mode((c.WIDTH + c.ADDWIDTH, c.HEIGHT ))
@@ -19,7 +22,7 @@ def menu():
 
     dir_icon = path.join(path.dirname(__file__), '../assets')
 
-    font = pygame.font.SysFont('Impact', 150)
+    font = pygame.font.SysFont('Impact', 30)
     text_font = pygame.font.SysFont('Impact', 80)
 
     driving_img = pg.image.load('../assets/drivinggta.png').convert_alpha()
@@ -60,7 +63,8 @@ def menu():
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
 
-        surface.blit(text_font.render('FindMap', True, pygame.Color('cyan'), True), (WIDTH + 10, 30))
+        surface.blit(text_font.render('MapFinder', True, pygame.Color('grey'), True), (WIDTH + 10, 30))
+        surface.blit(font.render('Horsehoes Locations', True, pygame.Color('grey'), True), (WIDTH + 12, 85))
         
         for button in [CAR_BUTTON, JETTPACK, QUIT_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
