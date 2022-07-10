@@ -24,11 +24,17 @@ Adicione 3 ou mais screenshots do projeto em funcionamento.
 
 Tela do menu inicial:
 ![Tela menu inicial](./assets/menuInicial.png)
+
 Mapa do jogo.
+
 ![Mapa do jogo](./assets/mapaJogo.png)
+
 Tela com objetivos traçados utilizando o carro:
+
 ![Mapa com carro](./assets/mapaJogoCarro.png)
+
 Tela com objetivos traçados utilizando jetpack:
+
 ![Mapa com jetpack](./assets/mapaJogoJetpack.png)
 
 
