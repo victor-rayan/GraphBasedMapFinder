@@ -1,3 +1,5 @@
+from types import NoneType
+from typing import Type
 import pygame as pg
 import const as c
 import grid as g
@@ -161,6 +163,8 @@ while True:
             screen.blit(img, r)
             current = current + path[DijkstraAlgorithm.transform_int(current)]
     except KeyError:
+        pass
+    except TypeError:
         pass
 
     draw_icons()
