@@ -19,24 +19,36 @@ dir_icon = path.join(path.dirname(__file__), '../assets')
 font = pygame.font.SysFont('Impact', 150)
 text_font = pygame.font.SysFont('Impact', 80)
 
+driving_img = pg.image.load('drivinggta.png').convert_alpha()
+driving_img = pg.transform.scale(driving_img, (50, 50))
+driving_rect = driving_img.get_rect()
+driving_rect.center = WIDTH + 250, 200
+
+jetpack_img = pg.image.load('jetpack.png').convert_alpha()
+jetpack_img = pg.transform.scale(jetpack_img, (80, 80))
+jetpack_rect = jetpack_img.get_rect()
+jetpack_rect.center = WIDTH + 250, 350
+
+
 def get_font(size): 
     return pygame.font.Font(path.join(dir_icon, 'font.ttf'), size)
 path.join(dir_icon, 'Play Rect.png')
 
 def startgame():
     while True:
-        
+        surface.blit(driving_img, driving_rect)
+        surface.blit(jetpack_img, jetpack_rect)
         surface.blit(game_surface, (0, 0))
         game_surface.blit(bg_game, (100, 60))
         
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
         PLAY_BUTTON = ButtonScreen(image=pygame.image.load(path.join(dir_icon, 'Quit Rect.png')), pos=(WIDTH + 150, 200), 
-                            text_input="START", font=get_font(20), base_color="White", hovering_color="Blue")
+                            text_input="CARRO", font=get_font(20), base_color="White", hovering_color="Blue")
         JETTPACK = ButtonScreen(image=pygame.image.load(path.join(dir_icon, 'Quit Rect.png')), pos=(WIDTH + 150, 350), 
                             text_input="JETPACK", font=get_font(20), base_color="White", hovering_color="Blue")
         TERRESTRE = ButtonScreen(image=pygame.image.load(path.join(dir_icon, 'Quit Rect.png')), pos=(WIDTH + 150, 500), 
-                            text_input="CARRO", font=get_font(20), base_color="White", hovering_color="Blue")                                         
+                            text_input="VER DJKISTRA", font=get_font(20), base_color="White", hovering_color="Blue")                                         
         QUIT_BUTTON = ButtonScreen(image=pygame.image.load(path.join(dir_icon, 'Quit Rect.png')), pos=(WIDTH + 150, 650), 
                             text_input="SAIR", font=get_font(20), base_color="White", hovering_color="Blue")
 
@@ -57,7 +69,11 @@ def startgame():
                     pygame.quit()
                     sys.exit()
 
+                   
+
         pygame.display.update()
+    
+           
 
 if __name__ == '__main__':
     startgame()     
