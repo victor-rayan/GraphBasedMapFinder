@@ -14,7 +14,7 @@ screen = pg.display.set_mode((c.WIDTH, c.HEIGHT ))
 clock = pg.time.Clock()
 
 # Imagem mapa do jogo
-gtasa_img = pg.image.load('gtasa.jpg').convert_alpha()
+gtasa_img = pg.image.load('../assets/gtasa.jpg').convert_alpha()
 gtasa_img = pg.transform.scale(gtasa_img, (c.WIDTH, c.HEIGHT))
 gtasa_rect = gtasa_img.get_rect()
 gtasa_rect.center = c.WIDTH // 2, c.HEIGHT // 2
@@ -35,7 +35,7 @@ def draw_icons():
     start_center = (start.x * c.TILE + c.TILE / 2, start.y * c.TILE + c.TILE / 2)
     screen.blit(home_img, home_img.get_rect(center=start_center))
 def draw_horseicons():
-    with open('horsehoeslocations.txt', 'r') as file:
+    with open('../assets/horsehoeslocations.txt', 'r') as file:
         horsehoes = file.read().replace('\n', '')
 
     horsehoes = horsehoes.split("), ")
@@ -53,7 +53,7 @@ def colisionsListVerify(posx, posy):
     posx = math.floor(posx)
     posy = math.floor(posy)
     
-    with open('horsehoeslocations.txt', 'r') as file:
+    with open('../assets/horsehoeslocations.txt', 'r') as file:
         horsehoes = file.read().replace('\n', '')
 
     horsehoes = horsehoes.split("), ")
@@ -75,7 +75,7 @@ def colisionsListVerify(posx, posy):
     elif flag == 0:
         return False          
 
-icon_dir = path.join(path.dirname(__file__), '../icons')
+icon_dir = path.join(path.dirname(__file__), '../assets')
 
 # Imagens das ferraduras
 horse_img = pg.image.load(path.join(icon_dir, 'horse.png')).convert_alpha()
@@ -99,7 +99,7 @@ gps.fill(('blue'), special_flags=pg.BLEND_RGBA_MULT)
 for dir in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
     paths_gps[dir] = pg.transform.rotate(gps, vec(dir).angle_to(vec(1, 0)))  
 
-with open('collisionsList.txt', 'r') as file:
+with open('../assets/collisionsList.txt', 'r') as file:
     data = file.read().replace('\n', '')
 
 res = eval(data)

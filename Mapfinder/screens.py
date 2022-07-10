@@ -12,19 +12,19 @@ game_surface = pygame.Surface(RES)
 surface = pg.display.set_mode((c.WIDTH + 405, c.HEIGHT ))
 
 
-bg_game = pg.image.load('backgroundgta.png').convert()
+bg_game = pg.image.load('../assets/backgroundgta.png').convert()
 
 dir_icon = path.join(path.dirname(__file__), '../assets')
 
 font = pygame.font.SysFont('Impact', 150)
 text_font = pygame.font.SysFont('Impact', 80)
 
-driving_img = pg.image.load('drivinggta.png').convert_alpha()
+driving_img = pg.image.load('../assets/drivinggta.png').convert_alpha()
 driving_img = pg.transform.scale(driving_img, (50, 50))
 driving_rect = driving_img.get_rect()
 driving_rect.center = WIDTH + 250, 200
 
-jetpack_img = pg.image.load('jetpack.png').convert_alpha()
+jetpack_img = pg.image.load('../assets/jetpack.png').convert_alpha()
 jetpack_img = pg.transform.scale(jetpack_img, (80, 80))
 jetpack_rect = jetpack_img.get_rect()
 jetpack_rect.center = WIDTH + 250, 350
