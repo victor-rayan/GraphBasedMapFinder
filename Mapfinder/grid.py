@@ -5,11 +5,16 @@ sc = pg.math.Vector2
 screen = pg.display.set_mode((c.WIDTH, c.HEIGHT ))
 
 class Grid:
-    def __init__(self, width, height):
+    def __init__(self, width, height, typevehicule):
         self.width = width
         self.height = height
         self.walls = []
-        self.connections = [sc(1, 0), sc(-1, 0), sc(0, 1), sc(0, -1)] # Todas direções possíveis de ir up, down, left and right
+        if typevehicule:
+            self.connections = [sc(1, 0), sc(-1, 0), sc(0, 1), sc(0, -1)] # Todas direções possíveis de ir up, down, left and right
+        else:
+            self.connections = [vec(1, 0), vec(-1, 0), vec(0, 1), vec(0, -1)]
+            self.connections += [vec(1, 1), vec(-1, 1), vec(1, -1), vec(-1, -1)]
+
 
     def limits_grid(self, node):
         return 0 <= node.x < self.width and 0 <= node.y < self.height
@@ -29,8 +34,9 @@ class Grid:
             pg.draw.rect(screen, 'blue', rect)
 
 class WeightedGrid(Grid):
-    def __init__(self, width, height):
-        super().__init__(width, height)
+    def __init__(self, width, height, typevehicule):
+        print('elevador1')
+        super().__init__(width, height, typevehicule)
         self.weights = {}
 
     def cost(self, from_node, to_node):
