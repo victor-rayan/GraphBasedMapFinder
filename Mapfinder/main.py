@@ -143,12 +143,12 @@ def gta_gamehorses(Boolean):
 
             if event.type == pg.MOUSEBUTTONDOWN:
                 mouseposition = sc(pg.mouse.get_pos()) // c.TILE
-                if event.button == 1:
+                if event.button == 2:
                     if mouseposition in source.walls:
                         source.walls.remove(mouseposition)
                     else:
                         source.walls.append(mouseposition)
-                if event.button == 2:
+                if event.button == 1:
                     # if mouseposition
                     start = mouseposition
                 if event.button == 3:
