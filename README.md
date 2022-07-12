@@ -15,9 +15,9 @@ Temas:
 | 19/0044390  |  Victor Rayan Adriano Ferreira  |
 
 ## Sobre 
-Nosso trabalho utiliza o algoritmo de dijikstra para traçar o menor caminho sobre o mapa da cidade de Las Venturas do jogo Grand Theft Auto San Andreas, ele tem como objetivo mostrar as localizações das ferraduras do jogo, que são colecionáveis, e estabelecer um ponto de menor caminho entre a origem e o destino, que são as ferraduras.
+Nosso trabalho utiliza o algoritmo de dijikstra para traçar o menor caminho sobre o mapa da cidade de Las Venturas do jogo Grand Theft Auto San Andreas. Para zerar GTASAN 100% é preciso encontrar todas as ferraduras colecionáveis do jogo. O nosso trabalho tem como objetivo mostrar as localizações das ferraduras e estabelecer um ponto de menor caminho entre a origem(o ponto que você está no mapa) e o destino(uma das 50 ferraduras do jogo).
 
-O mapa utiliza duas formas de traçar os objetivos, uma por carro outra por jetpack, com carro ele respeita as regras da via, com jetpack ele tenta traçar o caminho com a menor distância sem considerar as vias.
+O mapa utiliza duas formas de traçar os objetivos, uma por carro outra por jetpack. Com o carro ele utiliza as ruas como caminho. Com o jetpack ele traça o caminho com a menor distância, voando sobre a cidade de Las venturas.
 
 ## Screenshots
 Adicione 3 ou mais screenshots do projeto em funcionamento.
@@ -72,7 +72,9 @@ $ python3 controler.py
 
 
 ## Uso 
-Selecione o botão com o método desejado para traçar a rota, Carro ou Jetpack, utilize o botão esquerdo do mouse para selecionar a sua posição de origem, e o botão direito como destino. Para retornar ao menu pressione a tecla C.
+1. Selecione o meio de transporte desejado para traçar a rota, Carro ou Jetpack.
+2. Utilize o botão esquerdo do mouse para selecionar a sua posição de origem, e o botão direito como destino. 
+3. Para retornar ao menu pressione a tecla C.
 
 !! Caso esteja de carro utilize as vias como origem do destino. !!
 
