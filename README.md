@@ -20,7 +20,6 @@ Nosso trabalho utiliza o algoritmo de dijikstra para traçar o menor caminho sob
 O mapa utiliza duas formas de traçar os objetivos, uma por carro outra por jetpack. Com o carro ele utiliza as ruas como caminho. Com o jetpack ele traça o caminho com a menor distância, voando sobre a cidade de Las venturas.
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
 
 Tela do menu inicial:
 ![Tela menu inicial](./assets/menuInicial.png)
